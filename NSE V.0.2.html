@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>NSE - Login & Rekomendasi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #f0f4f8;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container,
+    .thanks-box,
+    .rekomendasi-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .rekomendasi-container button {
+      background-color: #dc3545;
+      border-radius: 6px;
+    }
+
+    .rekomendasi-container button.completed {
+      background-color: #28a745;
+    }
+
+    .battery {
+      font-size: 20px;
+      margin-left: 10px;
+    }
+
+    .green {
+      color: green;
+    }
+
+    .red {
+      color: red;
+    }
+
+    .thanks-box h1 {
+      color: #28a745;
+      font-size: 32px;
+    }
+
+    .thanks-box p {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .rating input {
+      display: none;
+    }
+
+    .rating label {
+      font-size: 30px;
+      color: gray;
+      cursor: pointer;
+    }
+
+    .rating input:checked ~ label,
+    .rating label:hover,
+    .rating label:hover ~ label {
+      color: gold;
+    }
+
+    .logo {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Section -->
+  <div class="container" id="loginSection" style="display: flex;">
+    <div class="login-container">
+      <img src="WhatsApp Image 2025-06-09 at 21.03.41.jpeg" alt="Logo NSE" class="logo">
+      <h2>Login NSE</h2>
+      <form id="loginForm">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="age">Umur:</label>
+        <input type="number" id="age" name="age" required min="1">
+
+        <button type="submit">Masuk</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Rekomendasi Section -->
+  <div class="container" id="rekomendasiSection">
+    <div class="rekomendasi-container">
+      <h2>10 Rekomendasi untuk Mengurangi Kelelahan Emosional Perawat</h2>
+      <table id="recommendationTable">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Rekomendasi</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button onclick="goToThanks()">Simpan / Next</button>
+    </div>
+  </div>
+
+  <!-- Terima Kasih Section -->
+  <div class="container" id="thanksSection">
+    <div class="thanks-box">
+      <h1>Terima Kasih!</h1>
+      <p>Semoga rekomendasi ini membantu Anda merasa lebih baik dan sehat secara emosional.</p>
+      <form id="feedbackForm">
+        <label for="comment">Komentar:</label>
+        <textarea id="comment" name="comment" rows="4" placeholder="Berikan komentar Anda..."></textarea>
+
+        <label for="rating">Rating:</label>
+        <div class="rating">
+          <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+          <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+          <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+          <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+          <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+        </div>
+
+        <button type="submit">Kirim</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const loginSection = document.getElementById("loginSection");
+    const rekomendasiSection = document.getElementById("rekomendasiSection");
+    const thanksSection = document.getElementById("thanksSection");
+    const tbody = document.querySelector("#recommendationTable tbody");
+
+    const recommendations = [
+      "Istirahat sejenak di sela shift kerja",
+      "Mendengarkan musik relaksasi",
+      "Berbicara dengan rekan kerja",
+      "Melakukan meditasi singkat",
+      "Menulis jurnal atau catatan harian",
+      "Menghindari penggunaan gadget saat istirahat",
+      "Berolahraga ringan seperti stretching",
+      "Mengatur waktu tidur dengan baik",
+      "Mengikuti pelatihan manajemen stres",
+      "Mengonsumsi makanan sehat secara rutin"
+    ];
+
+    loginForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      loginSection.style.display = "none";
+      rekomendasiSection.style.display = "flex";
+      loadRecommendations();
+    });
+
+    function loadRecommendations() {
+      recommendations.forEach((rec, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${rec}</td>
+          <td>
+            <button onclick="toggleComplete(this)">
+              Tandai <span class="battery red">🔋</span>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function toggleComplete(btn) {
+      const battery = btn.querySelector('.battery');
+      btn.classList.add('completed');
+      battery.classList.remove('red');
+      battery.classList.add('green');
+      checkAllCompleted();
+    }
+
+    function checkAllCompleted() {
+      const buttons = document.querySelectorAll('#recommendationTable button');
+      const allCompleted = Array.from(buttons).every(btn => btn.classList.contains('completed'));
+      if (allCompleted) {
+        setTimeout(() => {
+          rekomendasiSection.style.display = "none";
+          thanksSection.style.display = "flex";
+        }, 1000);
+      }
+    }
+
+    function goToThanks() {
+      rekomendasiSection.style.display = "none";
+      thanksSection.style.display = "flex";
+    }
+
+    // Optional: Kirim komentar & rating ke log
+    document.getElementById("feedbackForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const comment = document.getElementById("comment").value;
+      const rating = document.querySelector('input[name="rating"]:checked')?.value || "Tidak ada rating";
+      alert(`Terima kasih atas komentar Anda!\nKomentar: ${comment}\nRating: ${rating} bintang`);
+    });
+  </script>
+</body>
+</html>
